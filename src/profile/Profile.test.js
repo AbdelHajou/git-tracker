@@ -1,4 +1,4 @@
-import { render, screen, waitFor, waitForDomChange } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import nock from 'nock';
 import Profile from './Profile';
 
@@ -15,7 +15,7 @@ beforeAll(() => {
 });
 
 test('loads the correct user', async () => {
-    render(<Profile userName='mocktocat' />);
+    renderWithRouter(<Profile />, {path: '/profile/:userName', route: '/profile/mocktocat'});
 
     await waitFor(() => {
         expect(screen.getByText('The Mocktocat (mocktocat)')).toBeInTheDocument();
