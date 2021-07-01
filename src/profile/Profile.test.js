@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import nock from 'nock';
 import Profile from './Profile';
+import CommitHistory from '../commits/CommitHistory';
 
 beforeAll(() => {
     nock('https://api.github.com')
@@ -8,6 +9,16 @@ beforeAll(() => {
             'access-control-allow-origin': '*',
             'access-control-allow-credentials': 'true' 
         })
+        .persist()
+        .get(/\/users\/.*\/events$/)
+        .reply(200, []);
+
+    nock('https://api.github.com')
+        .defaultReplyHeaders({
+            'access-control-allow-origin': '*',
+            'access-control-allow-credentials': 'true' 
+        })
+        .persist()
         .get('/users/mocktocat')
         .reply(200, {
              login: 'mocktocat', name: 'The Mocktocat', created_at: new Date()
