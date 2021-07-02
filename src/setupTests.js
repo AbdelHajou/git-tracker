@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { createMemoryHistory}  from 'history';
 import { render } from '@testing-library/react';
-import { Route, Router, Switch, MemoryRouter } from 'react-router-dom';
+import { Route, Switch, MemoryRouter } from 'react-router-dom';
 
 global.renderWithRouter = (
   ui,

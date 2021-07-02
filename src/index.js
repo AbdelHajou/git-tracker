@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import Home from "./home/Home";
+import Header from "./header/Header";
 import Profile from './profile/Profile';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <>
-    <Router>
+const routing = (
+  <Router>
+    <div>
+    <Header className='header' classes={{menuBar: 'menu', title: 'title'}} />
       <Switch>
+        <Route exact path="/" children={<Home />} />
         <Route path="/profile/:userName" children={<Profile />} />
       </Switch>
-    </Router>
-    </>
-  </React.StrictMode>,
-  document.getElementById('root')
+    </div>
+  </Router>
 );
 
-reportWebVitals();
+ReactDOM.render(routing, document.getElementById("root"));
