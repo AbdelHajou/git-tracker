@@ -1,7 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react'
+/*global renderWithRouter*/
+import { screen, waitFor } from '@testing-library/react'
 import nock from 'nock';
 import Profile from './Profile';
-import CommitHistory from '../commits/CommitHistory';
 
 beforeAll(() => {
     nock('https://api.github.com')
