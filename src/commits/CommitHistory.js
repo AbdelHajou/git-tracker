@@ -11,13 +11,11 @@ const CommitHistory = ({ eventsUrl }) => {
         }
 
         getEvents()
-    }, [events, eventsUrl])
+    }, [eventsUrl])
 
     const fetchEvents = async (eventsUrl) => {
         const res = await fetch(eventsUrl)
-
         const data = await res.json()
-
         return data
     }
 
