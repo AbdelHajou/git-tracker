@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { createMemoryHistory}  from 'history';
 import { render } from '@testing-library/react';
-import { Route, Router } from 'react-router-dom';
+import { Route, Router, Switch, MemoryRouter } from 'react-router-dom';
 
 global.renderWithRouter = (
   ui,
@@ -13,9 +13,11 @@ global.renderWithRouter = (
 ) => {
   return {
     ...render(
-      <Router history={history}>
-        <Route path={path} children={ui} />
-      </Router>
+      <MemoryRouter initialEntries={[route]}>
+        <Switch>
+          <Route path={path} children={ui} />
+        </Switch>
+      </MemoryRouter>
     )
   };
 }
