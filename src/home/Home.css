@@ -1,0 +1,16 @@
+.home {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home img {
+    max-height: 20%;
+    margin-top: 15%;
+}
+
+.home .search {
+    max-height: 10%;
+    margin-top: 2em;
+}
