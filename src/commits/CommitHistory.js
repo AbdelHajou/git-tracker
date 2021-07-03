@@ -6,39 +6,40 @@ import { Button } from 'react-bootstrap';
 import './CommitHistory.css';
 
 const CommitHistory = ({ eventsUrl }) => {
-    let currentPage = 1;
     const commitIncrements = 15;
     const [events, setEvents] = useState([]);
     const [numberOfCommits, setNumberOfCommits] = useState(commitIncrements);
+    const [showLoadMore, setShowLoadMore] = useState(true);
 
     useEffect(() => {
-        getEvents(currentPage)
-    }, [eventsUrl])
+        const getEvents = async () => {
+            var gitEvents = await fetchEvents(eventsUrl)
+            gitEvents = gitEvents.filter(event => event.type === 'PushEvent');
+            
+            gitEvents.forEach(event => {
+                event.payload.commits.forEach(commit => commit.repoName = event.repo.name);
+            });
 
-    const getEvents = async () => {
-        const fetchEvents = async (eventsUrl) => {
-            const res = await fetch(eventsUrl)
-            const data = await res.json()
-            return data
+            setEvents(gitEvents);
         }
 
-        var gitEvents = await fetchEvents(eventsUrl)
-        gitEvents = gitEvents.filter(event => event.type === 'PushEvent');
-        
-        gitEvents.forEach(event => {
-            event.payload.commits.forEach(commit => commit.repoName = event.repo.name);
-        });
+        getEvents()
+    }, []);
 
-        setEvents({...events, gitEvents});
+    const fetchEvents = async (eventsUrl) => {
+        const res = await fetch(eventsUrl)
+        const data = await res.json()
+        return data
     }
 
     const loadMoreCommits = async () => {
         var actualNumberOfCommits = events.flatMap(event => event.payload.commits).length;
         if (numberOfCommits + commitIncrements > actualNumberOfCommits) {
-            await getEvents(++currentPage);
+            setNumberOfCommits(actualNumberOfCommits);
+            setShowLoadMore(false);
+        } else {
+            setNumberOfCommits(numberOfCommits + commitIncrements);
         }
-
-        setNumberOfCommits(numberOfCommits + commitIncrements);
     };
 
     return (
@@ -51,11 +52,13 @@ const CommitHistory = ({ eventsUrl }) => {
                                 <Commit key={commit.sha} commit={commit} repoName={commit.repoName} />
                             ))
                         }
+                        { showLoadMore &&
                         <ListItem id='loadMore'>
                             <Button onClick={loadMoreCommits} style={{margin: 'auto', backgroundColor: '#f14e32', borderColor: '#f14e32'}}>
                             Load more
                             </Button>
                         </ListItem>
+                        }
                     </List>
                 )
             }
