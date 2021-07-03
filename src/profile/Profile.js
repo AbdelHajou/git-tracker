@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { format } from 'date-fns'
-import { Image, Col, Container, Row } from 'react-bootstrap'
+import { Image, Col, Container, Row, Tabs, Tab } from 'react-bootstrap'
 import { FaGithub, FaEnvelope } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import CommitHistory from '../commits/CommitHistory';
@@ -32,20 +32,22 @@ const Profile = () => {
 
     return (
         <Container>
-            <Row>
-                <Col md='4'>
+            <Row style={{padding: '1em'}}>
+                <Col md='3'>
                     <Image src={user.avatar_url} alt={user.login} roundedCircle />
+                </Col>
+                <Col md='5' style={{verticalAlign: 'middle'}}>
                     <h2>{user.name} {user.name ? `(${user.login})` : user.login}</h2>
                     <p>Member since {format(new Date(user.created_at), dateFormat)}</p>
                     <FaGithub />   <a href={user.html_url}>GitHub profile</a>
                     {user.email && (<><br/><FaEnvelope /><span>{user.email}</span></>)}
                 </Col>
             </Row>
-            <Row>
-                <Col md='8'>
+            <Tabs defaultActiveKey='commitHistory'>
+                <Tab eventKey='commitHistory' title="Commit History">
                     <CommitHistory eventsUrl={`https://api.github.com/users/${user.login}/events`} />
-                </Col>
-            </Row>    
+                </Tab>
+            </Tabs>
         </Container> 
     )
 }

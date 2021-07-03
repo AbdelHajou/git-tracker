@@ -1,0 +1,3 @@
+.commit:nth-child(odd) {
+    background-color: lightgrey;
+}
