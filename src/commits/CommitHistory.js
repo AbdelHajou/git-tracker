@@ -24,7 +24,7 @@ const CommitHistory = ({ eventsUrl }) => {
         }
 
         getEvents()
-    }, []);
+    }, [eventsUrl]);
 
     const fetchEvents = async (eventsUrl) => {
         const res = await fetch(eventsUrl)
