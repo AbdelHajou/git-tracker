@@ -28,6 +28,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `node server/server.js`
+
+Starts the ExpressJS API (requires Node). The API will listen on localhost:8080.
+
 ## Learn More
 
 To learn React, check out the [React documentation](https://reactjs.org/).
