@@ -12,6 +12,8 @@ const CommitHistory = ({ eventsUrl }) => {
     const [showLoadMore, setShowLoadMore] = useState(true);
 
     useEffect(() => {
+        let isSubscribed = true;;
+
         const getEvents = async () => {
             var gitEvents = await fetchEvents(eventsUrl)
             gitEvents = gitEvents.filter(event => event.type === 'PushEvent');
@@ -20,10 +22,14 @@ const CommitHistory = ({ eventsUrl }) => {
                 event.payload.commits.forEach(commit => commit.repoName = event.repo.name);
             });
 
-            setEvents(gitEvents);
+            if (isSubscribed) {
+                setEvents(gitEvents);
+            }
         }
 
         getEvents()
+
+        return () => (isSubscribed = false);
     }, [eventsUrl]);
 
     const fetchEvents = async (eventsUrl) => {
