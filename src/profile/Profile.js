@@ -4,6 +4,7 @@ import { Image, Col, Container, Row, Tabs, Tab } from 'react-bootstrap'
 import { FaGithub, FaEnvelope, FaEye } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import CommitHistory from '../commits/CommitHistory';
+import ProgrammingLanguages from '../programming-languages/ProgrammingLanguages';
 import './Profile.css'
 
 const Profile = () => {
@@ -63,6 +64,7 @@ const Profile = () => {
                     {user.email && (<><br/><FaEnvelope /><span>{user.email}</span></>)}
                 </Col>
             </Row>
+            <ProgrammingLanguages reposUrl={user.repos_url}></ProgrammingLanguages>
             <Tabs defaultActiveKey='commitHistory'>
                 <Tab eventKey='commitHistory' title="Commit History">
                     <CommitHistory eventsUrl={`https://api.github.com/users/${user.login}/events`} />
