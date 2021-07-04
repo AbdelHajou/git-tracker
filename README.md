@@ -1,6 +1,14 @@
 # Git Tracker
 [![CodeFactor](https://www.codefactor.io/repository/github/abdelhajou/git-tracker/badge?s=c2fab56035afe9d10f74187f6174e607cb49216c)](https://www.codefactor.io/repository/github/abdelhajou/git-tracker)
 
+Git Tracker is a web application where you can search GitHub users and get an overview of projects they contribute to, programming languages they use and more. This is mostly a hobby project, but the aim is to provide recruiters with an easy way to find developers that fit their needs. 
+
+Git Tracker is build on the MERN stack. The front-end is built using ReactJS. All user information is retrieved from the [public GitHub API](https://docs.github.com/en/rest), and it uses an ExpressJS back-end to store tracking information (like profile views) in a MongoDB database.
+
+## Requirements
+* NodeJS 14.x
+* MongoDB 4.x
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -30,8 +38,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `node server/server.js`
 
-Starts the ExpressJS API (requires Node). The API will listen on localhost:8080.
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Starts the ExpressJS API. The API will listen on localhost:8080.
