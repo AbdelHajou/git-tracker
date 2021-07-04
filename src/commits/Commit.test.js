@@ -7,7 +7,7 @@ const commit = {
 };
 
 test('should show commit info', async () => {
-    render(<Commit key={commit.sha} commit={commit} repo={{ name: 'mocktocat/reposteel' }} />);
+    render(<Commit key={commit.sha} commit={commit} repoName='mocktocat/reposteel' />);
 
     await waitFor(() => {
         expect(screen.getByText('Introduce new bugs')).toBeInTheDocument();
