@@ -14,6 +14,24 @@ const ProgrammingLanguages = ( { reposUrl }) => {
             return;
         }
 
+        const countLanguages = async (repos) => {
+            let countedLanguages = {};
+    
+            for (const repo of repos) {
+                let languagesInRepo = await fetchFromUrl(repo.languages_url);
+    
+                Object.keys(languagesInRepo).forEach(languageName => {
+                    if (languageName in countedLanguages) {
+                        countedLanguages[languageName] += languagesInRepo[languageName];
+                    } else {
+                        countedLanguages[languageName] = languagesInRepo[languageName];
+                    }
+                });
+            }
+    
+            return Object.keys(countedLanguages).map(languageName => ({ languageName: languageName, bytesContributed: countedLanguages[languageName] }));
+        };
+
         const getRepos = async () => {
             const gitRepos = await fetchFromUrl(reposUrl);
             const countedLanguages = await countLanguages(gitRepos);
@@ -33,24 +51,6 @@ const ProgrammingLanguages = ( { reposUrl }) => {
         const data = await res.json()
         return data
     }
-
-    const countLanguages = async (repos) => {
-        let countedLanguages = {};
-
-        for (const repo of repos) {
-            let languagesInRepo = await fetchFromUrl(repo.languages_url);
-
-            Object.keys(languagesInRepo).forEach(languageName => {
-                if (languageName in countedLanguages) {
-                    countedLanguages[languageName] += languagesInRepo[languageName];
-                } else {
-                    countedLanguages[languageName] = languagesInRepo[languageName];
-                }
-            });
-        }
-
-        return Object.keys(countedLanguages).map(languageName => ({ languageName: languageName, bytesContributed: countedLanguages[languageName] }));
-    };
 
     return (
         <>
