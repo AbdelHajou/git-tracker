@@ -4,6 +4,7 @@ import { Image, Col, Container, Row, Tabs, Tab } from 'react-bootstrap'
 import { FaGithub, FaEnvelope, FaEye } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import CommitHistory from '../commits/CommitHistory';
+import ProgrammingLanguages from '../programming-languages/ProgrammingLanguages';
 import './Profile.css'
 
 const Profile = () => {
@@ -54,13 +55,17 @@ const Profile = () => {
             <Row style={{padding: '1em'}}>
                 <Col md='3'>
                     <Image src={user.avatar_url} alt={user.login} roundedCircle />
+                    
                 </Col>
-                <Col md='5' style={{verticalAlign: 'middle'}}>
+                <Col md='4' style={{verticalAlign: 'middle'}}>
                     <h2>{user.name} {user.name ? `(${user.login})` : user.login}</h2>
                     <p>Member since {format(new Date(user.created_at), dateFormat)}</p>
                     <FaGithub />   <a href={user.html_url}>GitHub profile</a><br />
                     <FaEye />   <span>{views} profile views</span>
                     {user.email && (<><br/><FaEnvelope /><span>{user.email}</span></>)}
+                </Col>
+                <Col md='3'>
+                    <ProgrammingLanguages reposUrl={user.repos_url}></ProgrammingLanguages>
                 </Col>
             </Row>
             <Tabs defaultActiveKey='commitHistory'>
