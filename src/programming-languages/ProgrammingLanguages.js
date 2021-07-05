@@ -1,5 +1,8 @@
 
 import { useState, useEffect } from 'react'
+import {default as languageColors} from 'github-language-colors';
+import { Card, CardContent, Typography } from '@material-ui/core';
+import './ProgrammingLanguages.css';
 
 const ProgrammingLanguages = ( { reposUrl }) => {
     const [languages, setLanguages] = useState([]);
@@ -34,7 +37,7 @@ const ProgrammingLanguages = ( { reposUrl }) => {
     const countLanguages = async (repos) => {
         let countedLanguages = {};
 
-        repos.forEach(async (repo) => {
+        for (const repo of repos) {
             let languagesInRepo = await fetchFromUrl(repo.languages_url);
 
             Object.keys(languagesInRepo).forEach(languageName => {
@@ -44,15 +47,36 @@ const ProgrammingLanguages = ( { reposUrl }) => {
                     countedLanguages[languageName] = languagesInRepo[languageName];
                 }
             });
-        });
+        }
 
         return Object.keys(countedLanguages).map(languageName => ({ languageName: languageName, bytesContributed: countedLanguages[languageName] }));
     };
 
     return (
-        <div>
-            
-        </div>
+        <>
+            {
+                languages.length > 0 &&
+                (
+                    <Card className='programmingLanguages'>
+                        <CardContent>
+                            <Typography variant='h6'>
+                                Favorite languages
+                            </Typography>
+                            <ul>
+                            {
+                            languages.sort((a, b) => (a.bytesContributed > b.bytesContributed) ? -1 : 1).slice(0, 5).map(language => (
+                                <li className='lang' key={language.languageName} style={{ '--color': languageColors[language.languageName] }}>
+                                    {language.languageName}
+                                </li>
+                            ))
+                            }
+                            </ul>
+                        </CardContent>
+                    </Card>
+                    
+                )
+            }
+        </>
     )
 }
 
