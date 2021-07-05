@@ -13,7 +13,7 @@
     "github-language-colors": "^1.0.0",
     "mongodb": "^3.6.9",
     "mongoose": "^5.13.2",
-    "nock": "^13.1.0",
+    "nock": "^13.1.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
