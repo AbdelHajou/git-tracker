@@ -11,7 +11,7 @@
     "date-fns": "^2.22.1",
     "express": "^4.17.1",
     "github-language-colors": "^1.0.0",
-    "mongodb": "^3.6.10",
+    "mongodb": "^4.0.1",
     "mongoose": "^5.13.2",
     "nock": "^13.1.1",
     "react": "^17.0.2",
